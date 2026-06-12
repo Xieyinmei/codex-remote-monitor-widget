@@ -124,11 +124,27 @@ npm run typecheck  Run TypeScript checks
 
 ## Packaging
 
-The project includes an `electron-builder` configuration. A signed installer is not configured yet.
+The default package command creates an unpacked Windows app directory and reuses the Electron runtime installed in `node_modules/electron/dist`. This avoids downloading Electron during packaging.
 
 ```powershell
-npx electron-builder --win
+npm run package:win
 ```
+
+Then run:
+
+```text
+release/win-unpacked/Codex Monitor Widget.exe
+```
+
+To build an NSIS installer instead:
+
+```powershell
+npm run package:installer
+```
+
+The installer target may download additional builder assets, depending on your local cache and network environment. A signed installer is not configured yet.
+
+The unpacked directory build disables Windows executable resource editing/signing so it can work without downloading `winCodeSign` assets. The executable may show Electron's default metadata until a signed release pipeline is added.
 
 ## Roadmap
 

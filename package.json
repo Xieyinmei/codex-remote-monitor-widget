@@ -27,7 +27,8 @@
     "clean": "node scripts/clean.cjs",
     "build": "npm run clean && tsc -p tsconfig.main.json && vite build",
     "start": "npm run build && electron .",
-    "package:win": "npm run build && electron-builder --win",
+    "package:win": "npm run build && electron-builder --win dir",
+    "package:installer": "npm run build && electron-builder --win nsis",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit"
   },
@@ -52,7 +53,8 @@
   "build": {
     "appId": "local.codex.remote-monitor-widget",
     "productName": "Codex Monitor Widget",
-    "copyright": "Copyright © 2026",
+    "copyright": "Copyright (c) 2026",
+    "electronDist": "node_modules/electron/dist",
     "files": [
       "dist/**/*",
       "package.json",
@@ -63,7 +65,8 @@
       "output": "release"
     },
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "signAndEditExecutable": false
     }
   }
 }
